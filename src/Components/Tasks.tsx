@@ -1,10 +1,15 @@
+type Props = {
+    clickedName: string
+}
 
-
-const Tasks = () => {
+const Tasks: React.FunctionComponent<Props> = ({ clickedName }) => {
     return (
-        <div>
-            <h3>Tasks</h3>
-        </div>
+        <>
+            {clickedName == 'Tasks' ? <div>
+                <h3>Tasks</h3>
+            </div> : null}
+        </>
+        
     )
 }
 
