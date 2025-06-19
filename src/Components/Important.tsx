@@ -1,4 +1,7 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
+import { faStar as openStar } from '@fortawesome/free-regular-svg-icons'
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons'
 
 
 type Props = {
@@ -9,20 +12,34 @@ type Props = {
 }
 
 const Important: React.FunctionComponent<Props> = ({ clickedName, createNewDivTasks, changeText, updatedText }) => {
-    const [importantTasks, setImportantTasks] = useState<{ task?: number, importance?: boolean }[]>([])
+    const [importantTasks, setImportantTasks] = useState<{ task?: string, important?: string }[]>([])
     const [importance, setImportance] = useState('false')
 
     const createNewDivs = (e: React.FormEvent<HTMLFormElement>) => {
         const formData = new FormData(e.currentTarget)
+        const importantInput = formData.get('important')
         const objectData = Object.fromEntries(formData.entries())
         
         e.preventDefault()
         
+        if (objectData.task == '') {
+            console.log('NO ')
+            alert('Add Text!')
+            return
+        }
         setImportantTasks(previous => [...previous, objectData])
-        console.log('WOY1', formData, objectData, importantTasks)
+        console.log('WOY1', formData, objectData, importantTasks, importantInput, importance)
+        console.log('WOY2', objectData.important)
         createNewDivTasks(objectData)
         changeText('')
     }
+
+    const handleCheckedInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log('WOY3', e.currentTarget)
+        if (e.currentTarget.checked == false) setImportance('false')
+        else setImportance('true')
+    }
+    
 
     return (
         <>
@@ -30,12 +47,12 @@ const Important: React.FunctionComponent<Props> = ({ clickedName, createNewDivTa
                 <h2>Important</h2>
                 <div className="task-div">
                     {importantTasks.map((element, index) => (
-                        <div key={index}>{element.task}<span>{element.importance}</span></div>
+                        <div key={index}>{element.task}<span>{element.important == undefined ? <FontAwesomeIcon icon={openStar} /> : <FontAwesomeIcon icon={solidStar} />}</span></div>
                     ))}
                 </div>
                 <form id="taskForm" onSubmit={createNewDivs}>
                     <input name="task" placeholder="Add task" type="text" value={updatedText} onChange={e => changeText(e.currentTarget.value)} />
-                    <input name='important' type='checkbox' value={importance} />
+                    <input name='important' type='checkbox' value={importance} onChange={handleCheckedInput} />
                     {/* CHECK THE CHECKBOX INPUT */}
                 </form>
             </div> : null}
