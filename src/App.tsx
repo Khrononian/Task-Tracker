@@ -5,10 +5,6 @@ import { MyDay } from './Components/MyDay'
 import { Tasks } from './Components/Tasks'
 
 const App = () => {
-  const [importantTasks, setImportantTasks] = useState([{}])
-  const [projectTasks, setProjectTasks] = useState([{}])
-  const [newTasks, setNewTasks] = useState([{}])
-  const [randomTasks, setRandomTasks] = useState([{}])
   const [data, setData] = useState({})
   const [clickedName, setClickedName] = useState('')
   const [updatedText, setUpdatedText] = useState('')
@@ -16,7 +12,6 @@ const App = () => {
   const changeMainPage = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     console.log(e.target, clickedName)
     setClickedName(e.currentTarget.innerText)
-
   }
 
   const changeText = (textValue: string) => {
@@ -51,7 +46,7 @@ const App = () => {
         <MyDay clickedName={clickedName} createNewDivTasks={createNewDivTasks} changeText={changeText} updatedText={updatedText} />
         <Important clickedName={clickedName} createNewDivTasks={createNewDivTasks} changeText={changeText} updatedText={updatedText} />
         <Projects clickedName={clickedName} createNewDivTasks={createNewDivTasks} changeText={changeText} updatedText={updatedText} />
-        <Tasks clickedName={clickedName} />
+        <Tasks clickedName={clickedName} createNewDivTasks={createNewDivTasks} changeText={changeText} updatedText={updatedText} />
         
       </div>
     </>
