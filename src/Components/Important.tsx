@@ -11,7 +11,7 @@ type Props = {
     updatedText: string
 }
 
-const Important: React.FunctionComponent<Props> = ({ clickedName, createNewDivTasks, changeText, updatedText }) => {
+const Important: React.FC<Props> = ({ clickedName, createNewDivTasks, changeText, updatedText }) => {
     const [importantTasks, setImportantTasks] = useState<{ task?: string, important?: string }[]>([])
     const [importance, setImportance] = useState('false')
 
@@ -27,7 +27,10 @@ const Important: React.FunctionComponent<Props> = ({ clickedName, createNewDivTa
             alert('Add Text!')
             return
         }
+
         setImportantTasks(previous => [...previous, objectData])
+        if (objectData.important == undefined) objectData.important = 'false'
+
         console.log('WOY1', formData, objectData, importantTasks, importantInput, importance)
         console.log('WOY2', objectData.important)
         createNewDivTasks(objectData)
@@ -39,7 +42,19 @@ const Important: React.FunctionComponent<Props> = ({ clickedName, createNewDivTa
         if (e.currentTarget.checked == false) setImportance('false')
         else setImportance('true')
     }
-    
+
+    const handleStarredValues = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        console.log('CLICKED', e.currentTarget, e.currentTarget.parentElement?.innerText, e.currentTarget.innerText)
+        const parent = e.currentTarget.parentElement
+
+        setImportantTasks(previous =>
+            previous.map((obj) => 
+                obj.task == parent?.innerText ? {...obj, important: obj.important == 'true' ? 'false' : 'true'}
+                : obj
+                
+            )
+        )
+    }
 
     return (
         <>
@@ -47,7 +62,7 @@ const Important: React.FunctionComponent<Props> = ({ clickedName, createNewDivTa
                 <h2>Important</h2>
                 <div className="task-div">
                     {importantTasks.map((element, index) => (
-                        <div key={index}>{element.task}<span>{element.important == undefined ? <FontAwesomeIcon icon={openStar} /> : <FontAwesomeIcon icon={solidStar} />}</span></div>
+                        <div key={index}>{element.task}<span onClick={handleStarredValues}>{element.important == 'false' ? <FontAwesomeIcon icon={openStar} /> : <FontAwesomeIcon icon={solidStar} />}</span></div>
                     ))}
                 </div>
                 <form id="taskForm" onSubmit={createNewDivs}>
