@@ -1,0 +1,58 @@
+.backgrounds {
+    background: green;
+    /* min-height: 95.1vh; */
+    min-height: 95.1vh;
+    height: auto;
+    padding: 2.5em 2.5em 1.5em 3em;
+    width: 90%;
+    position: relative;
+}
+.innerBackground {
+    min-height: 82vh;
+    max-height: 700px;
+    overflow-y: auto;
+    position: relative;
+}
+h2 {
+    font-size: 2.2rem;
+}
+h4 {
+    font-weight: 200;
+    margin-bottom: 1.5em;
+}
+.tasks {
+    display: flex;
+    flex-direction: column-reverse;
+}
+form {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 84%;
+    margin-bottom: 5em;
+}
+input {
+    background: rgba(36, 33, 36, 0.5);
+    padding: .9em 1em;
+    width: 80%;
+    border-color: transparent;
+    backdrop-filter: blur(14px);
+    color: white;
+}
+input::placeholder {
+    color: white;
+}
+.taskDivs {
+    display: flex;
+    /* background: rgba(36, 33, 36, 0.5); */
+    background: rgba(2, 2, 2, 0.5);
+    padding: 1em;
+    border-radius: 4px;
+    margin-bottom: .2em;
+    cursor: default;
+    color: white;
+}
+.taskDivs:hover {
+    /* filter: brightness(150%); */
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+}
