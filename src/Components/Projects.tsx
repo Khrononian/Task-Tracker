@@ -1,5 +1,6 @@
 import { useState } from "react"
-
+import Styles from '../Styles.module.css'
+import OtherStyles from '../Input.module.css'
 
 type Props = {
     clickedName: string
@@ -24,19 +25,22 @@ const Projects: React.FunctionComponent<Props> = ({ clickedName, createNewDivTas
 
     return (
         <>
-            {clickedName == 'Projects' ? <div>
-                <h2>Projects</h2>
-
-                <div>
-                    {projectTasks.map((element, index) => (
-                        <div key={index}>{element.task}<span>{element.date}</span></div>
-                    ))}
+            {clickedName == 'Projects' ? <div className={Styles.backgrounds}>
+                <div className={Styles.innerBackground}>
+                    <h2 className={`${Styles.h2} ${OtherStyles.mainHeader}`}>Projects</h2>
+                    
+                    <div className={Styles.tasks}>
+                        {projectTasks.map((element, index) => (
+                            <div key={index} className={Styles.taskDivs}>{element.task}<span>{element.date}</span></div>
+                        ))}
+                    </div>
                 </div>
-                <form id="taskForm" onSubmit={createNewDivs}>
+                {clickedName == 'Projects' ? <form className={Styles.form} id="taskForm" onSubmit={createNewDivs}>
                     <input name="task" placeholder="Add task" type="text" value={updatedText} onChange={e => changeText(e.currentTarget.value)} />
                     <input name='date' type="date" value={`2025-06-17`}/>
-                </form>
+                </form> : null}
             </div> : null}
+            
         </>
         
     )
