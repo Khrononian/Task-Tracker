@@ -10,9 +10,10 @@ type Props = {
     createNewDivTasks: (FormData: object) => void
     changeText: (e: string) => void
     updatedText: string
+    changeAmountValues: (name: string) => void
 }
 
-const Important: React.FC<Props> = ({ clickedName, createNewDivTasks, changeText, updatedText }) => {
+const Important: React.FC<Props> = ({ clickedName, createNewDivTasks, changeText, updatedText, changeAmountValues }) => {
     const [importantTasks, setImportantTasks] = useState<{ task?: string, important?: string }[]>([])
     const [importance, setImportance] = useState('false')
 
@@ -35,6 +36,7 @@ const Important: React.FC<Props> = ({ clickedName, createNewDivTasks, changeText
         console.log('WOY1', formData, objectData, importantTasks, importantInput, importance)
         console.log('WOY2', objectData.important)
         createNewDivTasks(objectData)
+        changeAmountValues('Important')
         changeText('')
     }
 
@@ -58,7 +60,7 @@ const Important: React.FC<Props> = ({ clickedName, createNewDivTasks, changeText
 
     return (
         <>
-            {clickedName == 'Important' ? <div className={Styles.backgrounds}>
+            {clickedName.substring(0, 9) == 'Important' ? <div className={Styles.backgrounds}>
                 <div className={Styles.innerBackground}>
                     <h2 className={`${Styles.h2} ${InputStyle.mainHeader}`}>Important</h2>
                     <div className={Styles.tasks}>

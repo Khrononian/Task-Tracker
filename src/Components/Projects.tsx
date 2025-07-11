@@ -7,9 +7,10 @@ type Props = {
     createNewDivTasks: (FormData: object) => void
     changeText: (e: string) => void
     updatedText: string
+    changeAmountValues: (name: string) => void
 }
 
-const Projects: React.FunctionComponent<Props> = ({ clickedName, createNewDivTasks, changeText, updatedText }) => {
+const Projects: React.FunctionComponent<Props> = ({ clickedName, createNewDivTasks, changeText, updatedText, changeAmountValues }) => {
     const [projectTasks, setProjectTasks] = useState<{ task?: string, date?: string }[]>([])
     
     const createNewDivs = (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,12 +21,13 @@ const Projects: React.FunctionComponent<Props> = ({ clickedName, createNewDivTas
         setProjectTasks(previous => [...previous, objectData])
         console.log('WOY1', formData, objectData, projectTasks)
         createNewDivTasks(objectData)
+        changeAmountValues('Projects')
         changeText('')
     }
 
     return (
         <>
-            {clickedName == 'Projects' ? <div className={Styles.backgrounds}>
+            {clickedName.substring(0, 8) == 'Projects' ? <div className={Styles.backgrounds}>
                 <div className={Styles.innerBackground}>
                     <h2 className={`${Styles.h2} ${OtherStyles.mainHeader}`}>Projects</h2>
                     
@@ -35,7 +37,7 @@ const Projects: React.FunctionComponent<Props> = ({ clickedName, createNewDivTas
                         ))}
                     </div>
                 </div>
-                {clickedName == 'Projects' ? <form className={Styles.form} id="taskForm" onSubmit={createNewDivs}>
+                {clickedName.substring(0, 8) == 'Projects' ? <form className={Styles.form} id="taskForm" onSubmit={createNewDivs}>
                     <input name="task" placeholder="Add task" type="text" value={updatedText} onChange={e => changeText(e.currentTarget.value)} />
                     <input name='date' type="date" value={`2025-06-17`}/>
                 </form> : null}
